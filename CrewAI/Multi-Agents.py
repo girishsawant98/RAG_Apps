@@ -1,3 +1,21 @@
+import os
+from crewai import Agent, Task, Crew, LLM
+from langchain_groq import ChatGroq
+from langchain_community.llms import Ollama
+import warnings
+warnings.filterwarnings('ignore')
+from dotenv import load_dotenv
+load_dotenv()
+
+#os.environ["OPENAI_API_KEY"] = "NA"
+
+
+os.environ["CREWAI_LLM_PROVIDER"] = "ollama"
+os.environ["CREWAI_EMBEDDINGS_PROVIDER"] = "ollama"
+os.environ["OPENAI_API_KEY"] = "NA"
+#chat_groq_api_key = os.getenv("GROQ_API_KEY")
+
+ollama_llm = LLM(model="ollama/llama3.2:3b", base_url="http://localhost:11434")
 planner = Agent(
     role="Content Planner",
     goal="Plan engaging and factually accurate content on {topic}",
@@ -8,8 +26,10 @@ planner = Agent(
               "and make informed decisions. "
               "Your work is the basis for "
               "the Content Writer to write an article on this topic.",
+    llm=ollama_llm,
     allow_delegation=False,
 	verbose=True
+    
 )
 
 writer = Agent(
@@ -30,6 +50,7 @@ writer = Agent(
               "You acknowledge in your opinion piece "
               "when your statements are opinions "
               "as opposed to objective statements.",
+    llm = ollama_llm,
     allow_delegation=False,
     verbose=True
 )
@@ -47,8 +68,10 @@ editor = Agent(
               "when providing opinions or assertions, "
               "and also avoids major controversial topics "
               "or opinions when possible.",
+    llm = ollama_llm,
     allow_delegation=False,
     verbose=True
+ 
 )
 
 plan = Task(
@@ -99,9 +122,15 @@ edit = Task(
 crew = Crew(
     agents=[planner, writer, editor],
     tasks=[plan, write, edit],
-    verbose=2
+    llm=ollama_llm,
+    verbose=True
 )
 
 result = crew.kickoff(inputs={"topic": "Artificial Intelligence"})
+
+if __name__ == "__main__":
+    print("Final Edited Blog Post:\n")
+    print(result['edit']['output'])
+
 
 
