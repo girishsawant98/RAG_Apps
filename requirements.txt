@@ -1,0 +1,14 @@
+langchain
+langchain_core
+langchain_community
+faiss-cpu
+langchain_ollama
+python-dotenv
+SQLAlchemy
+python-dotenv
+mysql-connector-python
+langchain-groq
+streamlit
+
+
+
