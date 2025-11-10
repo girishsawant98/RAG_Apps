@@ -1,0 +1,33 @@
+venue_task:
+  description: >
+    Find a venue in {event_city} that meets criteria for {event_topic}.
+    Respond only with JSON in this structure:
+    {
+      "name": "string",
+      "address": "string",
+      "capacity": int,
+      "booking_status": "string"
+    }
+  expected_output: >
+    All the details of a specifically chosen venue you found to accommodate the event.
+  output_json: VenueDetails
+  output_file: output/venue_details.json
+  agent: venue_coordinator
+
+logistics_task:
+  description: >
+    Based on the selected venue, create a logistics plan that covers catering,
+    equipment, and staffing for {expected_participants} attendees on {tentative_date}.
+  expected_output: >
+    A summarized logistics plan in plain text format.
+  agent: logistics_manager
+
+marketing_task:
+  description: >
+    Draft a marketing strategy to promote the {event_topic} and engage at least
+    {expected_participants} potential attendees.
+  expected_output: >
+    A markdown-formatted marketing plan detailing communication channels,
+    campaign ideas, and target audience engagement.
+  agent: marketing_communications_agent
+  output_file: output/marketing_report.md

@@ -9,6 +9,7 @@ python-dotenv
 mysql-connector-python
 langchain-groq
 streamlit
-
-
+crewai[tools]
+crewai
+litellm
 
