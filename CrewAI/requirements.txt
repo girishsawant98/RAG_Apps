@@ -1,7 +1,0 @@
-crewai
-langchain
-langchain_ollama
-python-dotenv
-langchain_groq 
-litellm
-crewai[tools]
