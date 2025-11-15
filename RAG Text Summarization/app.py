@@ -9,28 +9,6 @@ from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound, Tran
 from pytube import YouTube
 load_dotenv()
 
-# -------------------------
-# Extract YouTube Video ID
-# -------------------------
-def extract_video_id(url: str):
-    parsed = urlparse(url)
-    video_id = None
-
-    # Standard YouTube link
-    if parsed.hostname in ["www.youtube.com", "youtube.com"]:
-        video_id = parse_qs(parsed.query).get("v", [None])[0]
-
-    # Short link: youtu.be/asd123
-    elif parsed.hostname == "youtu.be":
-        video_id = parsed.path.lstrip("/")
-
-    # Embed link: youtube.com/embed/asd123
-    elif parsed.path.startswith("/embed/"):
-        video_id = parsed.path.split("/")[2]
-
-    return video_id
-
-
 #----- Streamlit APP ------
 st.set_page_config(page_title="Langchain: Summarize Text From YT or Website", page_icon= "🦜")
 st.title("🦜Langchain: Summarize Text")
