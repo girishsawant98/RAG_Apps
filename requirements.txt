@@ -12,4 +12,9 @@ streamlit
 crewai[tools]
 crewai
 litellm
+validators
+youtube-transcript-api
+pytube
+unstructured
+
 
