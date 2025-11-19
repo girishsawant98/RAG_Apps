@@ -1,0 +1,26 @@
+research_task:
+  description: >
+    Research the product "{product_name}" using only offline tools.
+  expected_output: >
+    Offline research summary with keywords, audience pain points, and competitors.
+  agent: research_agent
+
+writing_task:
+  description: >
+    Based on research output, write full marketing content:
+    - Product description
+    - Key benefits
+    - SEO landing content
+    - 5 ad copy variations
+    - 5 social media captions
+  expected_output: >
+    First draft of marketing content.
+  agent: writer_agent
+
+editing_task:
+  description: >
+    Edit and refine the content to be publication ready.
+  expected_output: >
+    Polished final marketing content.
+  agent: editor_agent
+  output_file: output/marketing_copy.md
